@@ -1,8 +1,19 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Gear, House } from 'phosphor-react-native';
+
+import { Home } from '../screens/Home';
 import { SettingsRoutes } from './settings.routes';
-import { Gear } from 'phosphor-react-native';
+import { Pressable } from 'react-native';
 
 const Tab = createBottomTabNavigator();
+
+const TabBarButton = (props: BottomTabBarButtonProps) => {
+  return (
+    <Pressable onPress={props.onPress}>
+      {}
+    </Pressable>
+  )
+}
 
 export function TabRoutes() {
   return (
@@ -16,9 +27,19 @@ export function TabRoutes() {
           backgroundColor: '#F30A0A',
           borderColor: '#F30A0A',
           height: 55
-        }
+        },
+        // tabBarButton: props => <TabBarButton {...props} />
       }}
     >
+      <Tab.Screen
+        name='home'
+        component={Home}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <House color={color} size={size} weight={focused ? 'fill' : 'regular'} />
+          )
+        }}
+      />
       <Tab.Screen
         name='settings'
         component={SettingsRoutes}

@@ -8,7 +8,7 @@ type Props = {
 
 export function SettingButton({ title, icon, showBorderBottom = false }: Props) {
   return (
-    <TouchableOpacity activeOpacity={0.6} style={styles.container}>
+    <TouchableOpacity activeOpacity={0.4} style={styles.container}>
       {icon && icon()}
       <Text style={{ fontSize: 16 }}>
         {title}
