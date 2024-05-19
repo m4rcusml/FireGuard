@@ -2,17 +2,22 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   title: string;
+  onPress?(): void;
   icon?(): React.ReactNode;
+  right?(): React.ReactNode;
   showBorderBottom?: boolean;
+  showOpacityEffect?: boolean;
 }
 
-export function SettingButton({ title, icon, showBorderBottom = false }: Props) {
+export function SettingButton({ title, icon, right, showBorderBottom = false, onPress, showOpacityEffect = true }: Props) {
   return (
-    <TouchableOpacity activeOpacity={0.4} style={styles.container}>
+    <TouchableOpacity activeOpacity={showOpacityEffect ? 0.4 : 1} style={styles.container} onPress={onPress}>
       {icon && icon()}
       <Text style={{ fontSize: 16 }}>
         {title}
       </Text>
+      {right && right()}
+      
       {showBorderBottom && <View style={styles.borderBottom} />}
     </TouchableOpacity>
   )

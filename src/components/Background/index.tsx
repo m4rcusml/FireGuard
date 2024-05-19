@@ -2,11 +2,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export function Background({ children, style, usePaddingTop = false, cleanStyle = false }: {
+export function Background({ children, style, solidColor, usePaddingTop = false, cleanStyle = false }: {
   children?: React.ReactNode;
   usePaddingTop?: boolean;
   cleanStyle?: boolean;
   style?: ViewStyle;
+  solidColor?: string;
 }) {
   const { top } = useSafeAreaInsets();
 
@@ -19,7 +20,7 @@ export function Background({ children, style, usePaddingTop = false, cleanStyle 
         { flex: 1, paddingTop: usePaddingTop ? (top + 80) : top },
         style
       ]}
-      colors={['#F30A0A', '#8D0606']}
+      colors={!solidColor ? ['#F30A0A', '#8D0606'] : [solidColor, solidColor]}
     >
       {children}
     </LinearGradient>

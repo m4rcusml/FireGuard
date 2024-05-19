@@ -3,8 +3,12 @@ import { Background as TopCard } from '../../components/Background';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Logo from '../../assets/Logo';
 import { FireExtinguisher, FirstAidKit, ShieldStar, WifiHigh } from 'phosphor-react-native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { HomeRoutesType } from '../../routes/home.routes';
 
 export function Home() {
+  const { navigate } = useNavigation<NavigationProp<HomeRoutesType>>();
+  
   return (
     <SafeAreaView style={styles.container}>
       <TopCard style={styles.topCard} cleanStyle>
@@ -32,7 +36,7 @@ export function Home() {
         </Text>
       </TopCard>
 
-      <TouchableOpacity activeOpacity={0.6} style={styles.firstAidInstructionsButton}>
+      <TouchableOpacity activeOpacity={0.6} style={styles.firstAidInstructionsButton} onPress={() => navigate('firstAidInstructions')}>
         <FirstAidKit color='red' weight='fill' size={40} />
         <Text style={[styles.generalText, { color: 'red', fontWeight: 600, fontSize: 20, flex: 1 }]}>
           Instruções de primeiros socorros
@@ -40,17 +44,17 @@ export function Home() {
       </TouchableOpacity>
 
       <View style={styles.actionsContainer}>
-        <TouchableOpacity style={styles.action}>
+        <TouchableOpacity style={styles.action} activeOpacity={0.4} onPress={() => navigate('sensors')}>
           <WifiHigh color='white' size={32} />
           <Text style={styles.actionName}>Visualizar sensores</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.action}>
+        <TouchableOpacity style={styles.action} activeOpacity={0.4}>
           <FireExtinguisher color='white' size={32} />
           <Text style={styles.actionName}>Visualizar extintor</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.action}>
+        <TouchableOpacity style={styles.action} activeOpacity={0.4}>
           <ShieldStar color='white' size={32} />
           <Text style={styles.actionName}>Equipamento de segurança</Text>
         </TouchableOpacity>

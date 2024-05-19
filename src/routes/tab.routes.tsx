@@ -1,16 +1,20 @@
+import { Image, Pressable } from 'react-native';
 import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Gear, House } from 'phosphor-react-native';
+import { Bell, Gear, House, UserCircle } from 'phosphor-react-native';
 
-import { Home } from '../screens/Home';
 import { SettingsRoutes } from './settings.routes';
-import { Pressable } from 'react-native';
+import { HomeRoutes } from './home.routes';
+import { Profile } from '../screens/Profile';
+import Logo from '../assets/Logo';
+import { NotificationsRoutes } from './notifications.routes';
 
 const Tab = createBottomTabNavigator();
 
 const TabBarButton = (props: BottomTabBarButtonProps) => {
+  // isso aqui é aquele botão personalizado do figma, ainda to fazendo, pfv ignore
   return (
     <Pressable onPress={props.onPress}>
-      {}
+      { }
     </Pressable>
   )
 }
@@ -33,7 +37,7 @@ export function TabRoutes() {
     >
       <Tab.Screen
         name='home'
-        component={Home}
+        component={HomeRoutes}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <House color={color} size={size} weight={focused ? 'fill' : 'regular'} />
@@ -46,6 +50,24 @@ export function TabRoutes() {
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <Gear color={color} size={size} weight={focused ? 'fill' : 'regular'} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name='notifications'
+        component={NotificationsRoutes}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <Bell color={color} size={size} weight={focused ? 'fill' : 'regular'} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name='profile'
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <UserCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
           )
         }}
       />

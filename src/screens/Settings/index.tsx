@@ -2,9 +2,13 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { Background } from '../../components/Background';
 import { ContentCard } from '../../components/ContentCard';
 import { SettingButton } from '../../components/SettingButton';
-import { PersonArmsSpread, PersonSimple, Question, SignOut, Translate } from 'phosphor-react-native';
+import { PersonArmsSpread, Question, SignOut, Translate } from 'phosphor-react-native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { SettingsRoutesType } from '../../routes/settings.routes';
 
 export function Settings() {
+  const { navigate } = useNavigation<NavigationProp<SettingsRoutesType>>();
+  
   return (
     <Background style={{ gap: 35 }} usePaddingTop>
       <View style={styles.profileCard}>
@@ -18,10 +22,26 @@ export function Settings() {
       </View>
       
       <ContentCard>
-        <SettingButton title='Acessibilidade' icon={() => <PersonArmsSpread />} showBorderBottom />
-        <SettingButton title='Línguas' icon={() => <Translate />} showBorderBottom />
-        <SettingButton title='Ajuda' icon={() => <Question />} showBorderBottom />
-        <SettingButton title='Sair' icon={() => <SignOut />} />
+        <SettingButton
+          title='Acessibilidade'
+          showBorderBottom
+          icon={() => <PersonArmsSpread />}
+        />
+        <SettingButton
+          title='Idiomas'
+          showBorderBottom
+          icon={() => <Translate />}
+          onPress={() => navigate('languages')}
+        />
+        <SettingButton
+          title='Ajuda'
+          showBorderBottom
+          icon={() => <Question />}
+        />
+        <SettingButton
+          title='Sair'
+          icon={() => <SignOut />}
+        />
       </ContentCard>
     </Background>
   )

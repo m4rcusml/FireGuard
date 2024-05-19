@@ -1,8 +1,8 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
-export function ContentCard({ children }: { children?: React.ReactNode }) {
+export function ContentCard({ children, style }: { children?: React.ReactNode, style?: ViewStyle }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {children}
     </View>
   )
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20
+    paddingHorizontal: 20,
+    paddingVertical: 25
   }
 });
