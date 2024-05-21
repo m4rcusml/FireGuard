@@ -8,6 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Facebook from '../../../assets/Facebook';
 import Google from '../../../assets/Google';
+import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
+import { AuthRoutesType } from '../../../routes/auth.routes';
 
 
 const userLoginDataSchema = z.object({
@@ -17,21 +19,15 @@ const userLoginDataSchema = z.object({
 
 type userLoginDataType = z.infer<typeof userLoginDataSchema>;
 
-export function Login() {
+export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
 
   const { control, register, handleSubmit, formState: { errors } } = useForm<userLoginDataType>({
     resolver: zodResolver(userLoginDataSchema)
   });
 
-  return (
-    <Background>
-      <View style={styles.profileCard}>
-        <Image
-          source={{ uri: Logo }}
-          style={styles.profilePicture}
-        />
-      </View>
+  const {navigate}= useNavigation<NavigationProp<AuthRoutesType>>();
 
+  return (
       <ContentCard style={{ paddingHorizontal: 30, paddingVertical: 35, gap: 25, alignItems: 'center', }}>
         <ControlledTextfield
           control={control}
@@ -47,52 +43,52 @@ export function Login() {
           placeholder='**************'
           error={errors.password?.message}
         />
-        <TouchableOpacity style={styles.buttonLogin}  >
+        <TouchableOpacity style={styles.buttonLogin} onPress={() => navigate('signup')} >
           <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }} >Entrar</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#C61414', fontSize: 12 }}>Esqueceu a senha?
-          <Text style={{ color: '#FFC700' }}> Clique aqui</Text>
+        <Text style={styles.commonText}>Esqueceu a senha?
+          <Text style={styles.touchableText}> Clique aqui</Text>
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-          <View style={{ height: 1, flex: 1, backgroundColor: '#C61414' }}></View>
+          <View style={styles.divisor} />
           <Text>ou</Text>
-          <View style={{ height: 1, flex: 1, backgroundColor: '#C61414' }}></View>
+          <View style={styles.divisor} />
         </View>
         <View style={{ justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
-          <Image width={24} height={24} source={{ uri: Google }} />
-          <Image width={24} height={24} source={{ uri: Facebook }} />
+          <Image style={styles.image} source={{ uri: Google }} />
+          <Image style={styles.image} source={{ uri: Facebook }} />
         </View>
-        <Text style={{ color: '#C61414', fontSize: 12 }}>Não tem conta?
-          <Text style={{ color: '#FFC700' }}> Cadastre-se</Text>
+        <Text style={styles.commonText}>Não tem conta?
+          <Text style={styles.touchableText} onPress={() => navigate('signup')} > Cadastre-se</Text>
         </Text>
       </ContentCard>
-    </Background>
   )
 }
 
 const styles = StyleSheet.create({
-  profileCard: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePicture: {
-    aspectRatio: 1,
-    borderRadius: 80,
-    width: 210,
-  },
-  profileName: {
-    textDecorationLine: 'underline',
-    alignSelf: 'center',
-    fontWeight: '500',
-    color: 'white',
-    fontSize: 20,
-    flex: 1,
-  },
+
   buttonLogin: {
     paddingHorizontal: 70,
     paddingVertical: 10,
     backgroundColor: '#C61414',
     borderRadius: 30,
+  },
+  divisor: {
+    backgroundColor: '#C61414',
+    height: 1,
+    flex: 1,
+  },
+  commonText: {
+    color: '#C61414',
+    fontSize: 12,
+  },
+  touchableText: {
+    color: '#FFC700',
+  },
+  image: {
+    width: 24,
+    height: 24,
+
   },
 
 
