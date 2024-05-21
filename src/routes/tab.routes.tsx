@@ -1,12 +1,13 @@
 import { Image, Pressable } from 'react-native';
 import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Bell, Gear, House, UserCircle } from 'phosphor-react-native';
+import { Bell, ChatsCircle, Gear, House, UserCircle } from 'phosphor-react-native';
 
 import { SettingsRoutes } from './settings.routes';
 import { HomeRoutes } from './home.routes';
 import { Profile } from '../screens/Profile';
 import Logo from '../assets/Logo';
 import { NotificationsRoutes } from './notifications.routes';
+import { Chat } from '../screens/Chat';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +51,15 @@ export function TabRoutes() {
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <Gear color={color} size={size} weight={focused ? 'fill' : 'regular'} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name='chat'
+        component={Chat}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <ChatsCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
           )
         }}
       />
