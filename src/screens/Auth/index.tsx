@@ -3,7 +3,7 @@ import { Background } from '../../components/Background';
 import Logo from '../../assets/Logo';
 import { useState } from 'react';
 import { SignUp } from './SignUp';
-import { Login } from './Login';
+import { Login } from './LogIn';
 import { StatusBar } from 'expo-status-bar';
 
 

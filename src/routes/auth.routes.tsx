@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { SignUp } from '../screens/Auth/SignUp';
-import { Login } from '../screens/Auth/Login';
+import { Login } from '../screens/Auth/LogIn';
 import { Authentication } from '../screens/Auth';
 import { NavigationContainer } from '@react-navigation/native';
 

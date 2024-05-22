@@ -62,6 +62,7 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
         control={control}
         name='password'
         title='Senha'
+        isPassword={true}
         placeholder='**************'
         error={errors.password?.message}
       />
@@ -80,8 +81,8 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
         <Image style={styles.image} source={{ uri: Google }} />
         <Image style={styles.image} source={{ uri: Facebook }} />
       </View>
-      <Text style={styles.commonText}>Não tem conta?
-        <Text style={styles.touchableText} onPress={handleIsNewUser} > Cadastre-se</Text>
+      <Text style={styles.commonText} onPress={handleIsNewUser} >Não tem conta?
+        <Text style={styles.touchableText} > Cadastre-se</Text>
       </Text>
     </ContentCard>
   )
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
   buttonLogin: {
     paddingHorizontal: 70,
     paddingVertical: 10,
+    marginTop: 25,
     backgroundColor: '#C61414',
     borderRadius: 30,
   },
