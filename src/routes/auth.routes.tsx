@@ -3,25 +3,28 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SignUp } from '../screens/Auth/SignUp';
 import { Login } from '../screens/Auth/Login';
 import { Authentication } from '../screens/Auth';
+import { NavigationContainer } from '@react-navigation/native';
 
 export type AuthRoutesType = {
   signup: undefined;
   login: undefined;
-  authentication: {handleNewUser: ()=> void};
+  authentication: { handleNewUser: () => void };
 }
 
 const Auth = createNativeStackNavigator<AuthRoutesType>();
 
 export function AuthRoutes() {
   return (
-    <Auth.Navigator
-      screenOptions={{ headerShown: false }}
-    >
-      <Auth.Screen
-        name='authentication'
-        component={Authentication}
-      />
-      
-    </Auth.Navigator>
+    <NavigationContainer>
+      <Auth.Navigator
+        screenOptions={{ headerShown: false }}
+      >
+        <Auth.Screen
+          name='authentication'
+          component={Authentication}
+        />
+
+      </Auth.Navigator>
+    </NavigationContainer>
   )
 }

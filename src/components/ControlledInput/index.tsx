@@ -31,7 +31,7 @@ export function ControlledTextfield({ name, control, placeholder, title, error, 
             isPassword={isPassword}
             {...rest}
           />
-          {error && <Text children={error} />}
+          {error && <Text  style={styles.textError} children={error} />}
         </View>
       )}
     />
@@ -41,6 +41,10 @@ export function ControlledTextfield({ name, control, placeholder, title, error, 
 const styles = StyleSheet.create({
   typografy: {
     fontWeight: 'bold',
+    fontSize: 16,
+    color: '#C61414',
+  },
+  textError: {
     fontSize: 16,
     color: '#C61414',
   }

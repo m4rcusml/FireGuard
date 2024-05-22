@@ -1,15 +1,16 @@
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Background } from '../../../components/Background';
 import { ContentCard } from '../../../components/ContentCard';
-import Logo from '../../../assets/Logo';
 import { ControlledTextfield } from '../../../components/ControlledInput';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import Facebook from '../../../assets/Facebook';
 import Google from '../../../assets/Google';
 import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
 import { AuthRoutesType } from '../../../routes/auth.routes';
+import { useEmailPasswordAuth } from '@realm/react';
+import { useEffect } from 'react';
 
 
 const userLoginDataSchema = z.object({
@@ -21,47 +22,68 @@ type userLoginDataType = z.infer<typeof userLoginDataSchema>;
 
 export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
 
-  const { control, register, handleSubmit, formState: { errors } } = useForm<userLoginDataType>({
+  const { logIn, result } = useEmailPasswordAuth();
+  const { control, handleSubmit, setError, setValue, reset, formState: { errors } } = useForm<userLoginDataType>({
     resolver: zodResolver(userLoginDataSchema)
   });
 
-  const {navigate}= useNavigation<NavigationProp<AuthRoutesType>>();
+  function handleLogin(data: userLoginDataType) {
+    logIn(data);
+  }
+
+  useEffect(() => {
+    if (result.success) {
+      Alert.alert("Logou");
+    } else if (result.error) {
+      if (result.error.message === 'Error: invalid username/password') {
+        setError('email', { type: 'manual', message: 'E-mail ou senha incorretos' });
+        setValue('password', '');
+      }
+      else{
+        Alert.alert("Ocorreu um erro");
+      }
+
+    }
+  }, [result, control, reset]);
+
+  //NAVEÇÃO PARA FORGOT PASSWORD
+  //const { navigate } = useNavigation<NavigationProp<AuthRoutesType>>();
 
   return (
-      <ContentCard style={{ paddingHorizontal: 30, paddingVertical: 35, gap: 25, alignItems: 'center', }}>
-        <ControlledTextfield
-          control={control}
-          name='email'
-          title='E-mail'
-          placeholder='Digite seu E-mail'
-          error={errors.email?.message}
-        />
-        <ControlledTextfield
-          control={control}
-          name='password'
-          title='Senha'
-          placeholder='**************'
-          error={errors.password?.message}
-        />
-        <TouchableOpacity style={styles.buttonLogin} onPress={() => navigate('signup')} >
-          <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }} >Entrar</Text>
-        </TouchableOpacity>
-        <Text style={styles.commonText}>Esqueceu a senha?
-          <Text style={styles.touchableText}> Clique aqui</Text>
-        </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-          <View style={styles.divisor} />
-          <Text>ou</Text>
-          <View style={styles.divisor} />
-        </View>
-        <View style={{ justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
-          <Image style={styles.image} source={{ uri: Google }} />
-          <Image style={styles.image} source={{ uri: Facebook }} />
-        </View>
-        <Text style={styles.commonText}>Não tem conta?
-          <Text style={styles.touchableText} onPress={() => navigate('signup')} > Cadastre-se</Text>
-        </Text>
-      </ContentCard>
+    <ContentCard style={{ paddingHorizontal: 30, paddingVertical: 35, gap: 25, alignItems: 'center', }}>
+      <ControlledTextfield
+        control={control}
+        name='email'
+        title='E-mail'
+        placeholder='Digite seu E-mail'
+        error={errors.email?.message}
+      />
+      <ControlledTextfield
+        control={control}
+        name='password'
+        title='Senha'
+        placeholder='**************'
+        error={errors.password?.message}
+      />
+      <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit(handleLogin)} >
+        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }} >Entrar</Text>
+      </TouchableOpacity>
+      <Text style={styles.commonText}>Esqueceu a senha?
+        <Text style={styles.touchableText}> Clique aqui</Text>
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+        <View style={styles.divisor} />
+        <Text>ou</Text>
+        <View style={styles.divisor} />
+      </View>
+      <View style={{ justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
+        <Image style={styles.image} source={{ uri: Google }} />
+        <Image style={styles.image} source={{ uri: Facebook }} />
+      </View>
+      <Text style={styles.commonText}>Não tem conta?
+        <Text style={styles.touchableText} onPress={handleIsNewUser} > Cadastre-se</Text>
+      </Text>
+    </ContentCard>
   )
 }
 
