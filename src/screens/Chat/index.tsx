@@ -43,7 +43,7 @@ export function Chat() {
   }, []);
 
   return (
-    <Background solidColor='white'>
+    <Background solidColor='white' usePaddingTop>
       <Image
         source={{ uri: Logo }}
         style={{
