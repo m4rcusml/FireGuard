@@ -60,7 +60,10 @@ export function TabRoutes() {
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <ChatsCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
-          )
+          ),
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: 'white'
         }}
       />
       <Tab.Screen
