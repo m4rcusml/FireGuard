@@ -80,8 +80,8 @@ export function SignUp({ handleIsNewUser }: { handleIsNewUser(): void }) {
         placeholder='**************'
         error={errors.passwordConfirm?.message}
       />
-      <TouchableOpacity style={styles.buttonLogin} >
-        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }} onPress={handleSubmit(handleSignUp)} >Cadastrar</Text>
+      <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit(handleSignUp)}  >
+        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Cadastrar</Text>
       </TouchableOpacity>
       <Text style={styles.commonText} onPress={handleIsNewUser} >Já tem uma conta?
         <Text style={styles.touchableText} > Entrar</Text>
