@@ -62,8 +62,7 @@ export function TabRoutes() {
             <ChatsCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
           ),
           headerShown: true,
-          headerTransparent: true,
-          headerTintColor: 'white'
+          headerTintColor: 'red'
         }}
       />
       <Tab.Screen
