@@ -1,30 +1,31 @@
 import Realm from 'realm';
-import { userSchema, UserType } from './UserSchema';
+import { User } from './UserSchema';
 
-export type MEssageType = {
-    _id: Realm.BSON.ObjectId;
-    text: string;
-    user: UserType;
-    image: string;
-    video: string;
-    audio: string;
-    system: boolean;
-    sent: boolean;
-    recived: boolean;
-    pending: boolean;
-}
+export class Message extends Realm.Object<Message> {
+    _id!: Realm.BSON.UUID;
+    text!: string;
+    user!: User;
+    image?: string;
+    audio?: string;
+    system?: boolean;
+    sent?: boolean;
+    recived?: boolean;
+    pending?: boolean;
 
+    static schema: Realm.ObjectSchema = {
+        name: 'Message',
+        primaryKey: '_id',
+        properties: {
+            _id: { type: 'uuid', default: () => new Realm.BSON.UUID },
+            user: 'User',
+            text: 'string',
+            image: 'string',
+            audio: 'string',
+            system: 'bool',
+            sent: 'bool',
+            recived: 'bool',
+            pending: 'bool',
+        }
+    };
 
-
-
-
-export const MessageSchema = {
-    name: 'message',
-    primaryKey: '_id',
-    properties: {
-        _id: 'objectId',
-        name: 'string',
-        user: 'user',
-        createdAt: 'int',
-    },
 }

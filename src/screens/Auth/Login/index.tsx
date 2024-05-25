@@ -10,13 +10,13 @@ import Google from '../../../assets/Google';
 import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
 import { AuthRoutesType } from '../../../routes/auth.routes';
 import { useEmailPasswordAuth } from '@realm/react';
-import { useEffect } from 'react';
-
+import { useCallback, useEffect } from 'react';
 
 const userLoginDataSchema = z.object({
   email: z.string({ required_error: 'Campo obrigatório' }).min(1, 'Campo obrigatório'),
   password: z.string({ required_error: 'Campo obrigatório' }).min(1, 'Campo obrigatório'),
 })
+
 
 type userLoginDataType = z.infer<typeof userLoginDataSchema>;
 
@@ -31,20 +31,19 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
     logIn(data);
   }
 
+
   useEffect(() => {
-    if (result.success) {
-      Alert.alert("Logou");
-    } else if (result.error) {
+    if (result.error) {
       if (result.error.message === 'Error: invalid username/password') {
         setError('email', { type: 'manual', message: 'E-mail ou senha incorretos' });
         setValue('password', '');
       }
-      else{
+      else {
         Alert.alert("Ocorreu um erro");
       }
 
     }
-  }, [result, control, reset]);
+  }, [result]);
 
   //NAVEÇÃO PARA FORGOT PASSWORD
   //const { navigate } = useNavigation<NavigationProp<AuthRoutesType>>();

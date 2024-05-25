@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ControlledTextfield } from '../../../components/ControlledInput';
-import { useEffect, useState } from 'react';
-import { useEmailPasswordAuth } from '@realm/react';
+import { useCallback, useEffect, useState } from 'react';
+import { useEmailPasswordAuth, useQuery, useRealm } from '@realm/react';
 
 const userSignupDataSchema = z.object({
   name: z.string({ required_error: 'Campo obrigatório' })
@@ -38,6 +38,7 @@ export function SignUp({ handleIsNewUser }: { handleIsNewUser(): void }) {
     register(data);
     setHasCreated(true);
   }
+
 
   useEffect(() => {
     if (!result.pending) {

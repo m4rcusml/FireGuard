@@ -5,10 +5,17 @@ import Logo from '../../assets/Logo';
 import { FireExtinguisher, FirstAidKit, ShieldStar, WifiHigh } from 'phosphor-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HomeRoutesType } from '../../routes/home.routes';
+import { useObject, useRealm, useUser } from '@realm/react';
+import { User } from '../../contexts/UserSchema';
 
 export function Home() {
   const { navigate } = useNavigation<NavigationProp<HomeRoutesType>>();
+  const realm = useRealm();
+  const user = useUser();
   
+  const userObject = realm.objects(User).filtered('userId == $0', user!.id);
+  console.log(userObject[0]);
+
   return (
     <SafeAreaView style={styles.container}>
       <TopCard style={styles.topCard} cleanStyle>
@@ -26,7 +33,7 @@ export function Home() {
               style={{ aspectRatio: 1, borderRadius: 64 }}
             />
             <Text style={styles.profileName} numberOfLines={2}>
-              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{'Brigadista qualquer'}</Text>
+              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{userObject[0]?.name?? 'Brigadista'}</Text>
             </Text>
           </View>
         </View>
