@@ -1,16 +1,16 @@
 import Realm from 'realm';
 
-export class User extends Realm.Object<User>{
-    _id!: Realm.BSON.UUID;
+export class UserSchema extends Realm.Object<UserSchema> {
+    _id!: Realm.BSON.ObjectId;
     userId!: string;
     name!: string;
     imageProfile?: string;
 
     static schema: Realm.ObjectSchema = {
-        name: 'User',
+        name: 'user',
         primaryKey: '_id',
         properties: {
-            _id: { type: 'uuid', default: () => new Realm.BSON.UUID },
+            _id: { type: 'objectId', default: () => new Realm.BSON.ObjectId },
             name: 'string',
             userId: 'string',
             imageProfile: 'string',

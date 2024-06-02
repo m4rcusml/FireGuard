@@ -5,16 +5,18 @@ import Logo from '../../assets/Logo';
 import { FireExtinguisher, FirstAidKit, ShieldStar, WifiHigh } from 'phosphor-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HomeRoutesType } from '../../routes/home.routes';
-import { useObject, useRealm, useUser } from '@realm/react';
-import { User } from '../../contexts/UserSchema';
+import { useObject, useQuery, useRealm, useUser } from '@realm/react';
+import { UserSchema } from '../../contexts/UserSchema';
 
 export function Home() {
   const { navigate } = useNavigation<NavigationProp<HomeRoutesType>>();
   const realm = useRealm();
   const user = useUser();
+  console.log(user.id);
+
   
-  const userObject = realm.objects(User).filtered('userId == $0', user!.id);
-  console.log(userObject[0]);
+  const userProfile = useQuery(UserSchema).filtered('userId == $0', user.id);
+  console.log(userProfile[0]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,11 +31,11 @@ export function Home() {
           <View style={styles.profileCard}>
             <Image
               width={38}
-              source={{ uri: 'https://github.com/m4rcusml.png' }}
+              source={{ uri: userProfile[0]?.imageProfile?? "https://th.bing.com/th/id/OIP.2QIIjVghu-GD7lAoSmx0TwHaIh?rs=1&pid=ImgDetMain" }}
               style={{ aspectRatio: 1, borderRadius: 64 }}
             />
             <Text style={styles.profileName} numberOfLines={2}>
-              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{userObject[0]?.name?? 'Brigadista'}</Text>
+              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{userProfile[0]?.name?? 'Brigadista'}</Text>
             </Text>
           </View>
         </View>

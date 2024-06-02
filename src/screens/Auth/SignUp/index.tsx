@@ -6,11 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ControlledTextfield } from '../../../components/ControlledInput';
 import { useCallback, useEffect, useState } from 'react';
-import { useEmailPasswordAuth, useQuery, useRealm } from '@realm/react';
+import { useEmailPasswordAuth } from '@realm/react';
+import { Realm, App, User } from 'realm';
 
 const userSignupDataSchema = z.object({
-  name: z.string({ required_error: 'Campo obrigatório' })
-    .min(1, 'Campo obrigatório'),
   email: z.string({ required_error: 'Campo obrigatório' })
     .min(1, 'Campo obrigatório')
     .email('Email inválido')
@@ -26,38 +25,22 @@ const userSignupDataSchema = z.object({
 
 type userSignDataType = z.infer<typeof userSignupDataSchema>;
 
+
+
 export function SignUp({ handleIsNewUser }: { handleIsNewUser(): void }) {
   const { register, result } = useEmailPasswordAuth();
   const { control, handleSubmit, formState: { errors } } = useForm<userSignDataType>({
     resolver: zodResolver(userSignupDataSchema)
   });
 
-  const [hasCreated, setHasCreated] = useState(false);
-
-  function handleSignUp(data: userSignDataType) {
-    register(data);
-    setHasCreated(true);
+  async function handleSignUp(data: userSignDataType) {
+    await register(data)
+    handleIsNewUser();
   }
-
-
-  useEffect(() => {
-    if (!result.pending) {
-      if (result.success && hasCreated) {
-        Alert.alert('Conta criada!', 'Sua conta foi criada com sucesso, volte e faça login.');
-      }
-    }
-  }, [result]);
 
 
   return (
     <ContentCard style={{ paddingHorizontal: 30, paddingVertical: 35, gap: 25, alignItems: 'center', }}>
-      <ControlledTextfield
-        control={control}
-        name='name'
-        title='Nome'
-        placeholder='Digite seu nome'
-        error={errors.name?.message}
-      />
       <ControlledTextfield
         control={control}
         name='email'

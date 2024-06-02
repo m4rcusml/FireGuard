@@ -2,7 +2,7 @@ import Realm from 'realm';
 import { AppProvider, RealmProvider, UserProvider } from "@realm/react";
 import { AuthRoutes } from "../routes/auth.routes";
 
-import { User } from "./UserSchema";
+import { UserSchema } from "./UserSchema";
 import { Message } from "./MessageSchema";
 
 
@@ -15,7 +15,7 @@ export function AppRealmProvider({ children }: { children: React.ReactNode }) {
     <AppProvider id='application-0-sfqtcfe'>
       <UserProvider fallback={AuthRoutes}>
         <RealmProvider
-          schema={[User, Message]}
+          schema={[UserSchema, Message]}
           sync={{
             flexible: true,
             onError: (session, error) => {
@@ -25,7 +25,8 @@ export function AppRealmProvider({ children }: { children: React.ReactNode }) {
             existingRealmFileBehavior: realmAccessBehavior,
             initialSubscriptions: {
               update(subs, realm) {
-                subs.add(realm.objects(User));
+                subs.add(realm.objects('user'));
+                subs.add(realm.objects('Message'));
               },
               rerunOnOpen: true,
             },

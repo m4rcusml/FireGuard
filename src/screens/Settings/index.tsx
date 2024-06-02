@@ -5,19 +5,31 @@ import { SettingButton } from '../../components/SettingButton';
 import { PersonArmsSpread, Question, SignOut, Translate } from 'phosphor-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { SettingsRoutesType } from '../../routes/settings.routes';
+import { useApp, useQuery, useRealm, useUser } from '@realm/react';
+import { UserSchema} from '../../contexts/UserSchema';
 
 export function Settings() {
   const { navigate } = useNavigation<NavigationProp<SettingsRoutesType>>();
+  const app = useApp();
+  const realm = useRealm();
+  const user = useUser();
+  
+  function logOut() {
+    app.currentUser?.logOut();
+  }
+
+  const userProfile = useQuery(UserSchema).filtered('userId == $0', user.id);
+  console.log(userProfile[0]);
   
   return (
     <Background style={{ gap: 35 }} usePaddingTop>
       <View style={styles.profileCard}>
         <Image
-          source={{ uri: 'https://github.com/m4rcusml.png' }}
+          source={{ uri: userProfile[0].imageProfile }}
           style={styles.profilePicture}
         />
         <Text style={styles.profileName}>
-          {'Brigadista qualquer'}
+          {userProfile[0].name}
         </Text>
       </View>
       
@@ -40,6 +52,7 @@ export function Settings() {
         />
         <SettingButton
           title='Sair'
+          onPress={logOut}
           icon={() => <SignOut />}
         />
       </ContentCard>
