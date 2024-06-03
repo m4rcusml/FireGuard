@@ -31,11 +31,11 @@ export function Home() {
           <View style={styles.profileCard}>
             <Image
               width={38}
-              source={{ uri: userProfile[0]?.imageProfile?? "https://th.bing.com/th/id/OIP.2QIIjVghu-GD7lAoSmx0TwHaIh?rs=1&pid=ImgDetMain" }}
+              source={{ uri: userProfile[0]?.imageProfile}}
               style={{ aspectRatio: 1, borderRadius: 64 }}
             />
             <Text style={styles.profileName} numberOfLines={2}>
-              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{userProfile[0]?.name?? 'Brigadista'}</Text>
+              Bem vindo(a), <Text style={{ color: 'black', fontWeight: '500' }}>{userProfile[0]?.name}</Text>
             </Text>
           </View>
         </View>

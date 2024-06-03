@@ -20,12 +20,12 @@
                 _id: { type: 'objectId', default: () => new Realm.BSON.ObjectId },
                 user: 'user',
                 text: 'string',
-                image: 'string',
-                audio: 'string',
-                system: 'bool',
-                sent: 'bool',
-                recived: 'bool',
-                pending: 'bool',
+                image: 'string?',
+                audio: 'string?',
+                system: 'bool?',
+                sent: 'bool?',
+                recived: 'bool?',
+                pending: 'bool?',
                 createdAt: 'date',
             }
         };

@@ -62,7 +62,8 @@ export function TabRoutes() {
             <ChatsCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
           ),
           headerShown: true,
-          headerTintColor: 'red'
+          headerTintColor: 'red',
+          headerTitle: 'Grupo dos Brigadistas'
         }}
       />
       <Tab.Screen
