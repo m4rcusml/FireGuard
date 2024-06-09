@@ -20,7 +20,7 @@ export function Authentication() {
         translucent
         backgroundColor={'transparent'}
       />
-      <Background >
+      <Background>
         <View style={styles.logoCard}>
           <Logo
             style={styles.logoPicture}
