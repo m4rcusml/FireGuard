@@ -12,6 +12,7 @@ export function StackRoutes() {
         name='main'
         component={TabRoutes}
       />
+  
     </Stack.Navigator>
   )
 }

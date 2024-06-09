@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Bubble, BubbleProps, GiftedChat, IMessage, Send, SendProps } from 'react-native-gifted-chat';
 import { Background } from '../../components/Background';
 import { PaperPlaneTilt } from 'phosphor-react-native';
-import Logo from '../../assets/Logo';
+import Logo from '../../assets/Logo.svg';
 import { useQuery, useRealm, useUser } from '@realm/react';
 import { UserSchema } from '../../contexts/UserSchema';
 import { Message } from '../../contexts/MessageSchema';
@@ -102,16 +102,16 @@ export function Chat() {
 
   return (
     <Background solidColor='white' style={{ paddingTop: 0 }}>
-      <Image
-        source={{ uri: Logo }}
+      <Logo
+        width={400}
+        height={400}
         style={{
-          transform: [{ translateX: -160 }, { translateY: -160 }],
+          transform: [{ translateX: -200 }, { translateY: -200 }],
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: 320,
           opacity: 0.2,
-          aspectRatio: 1,
+
         }}
       />
       <GiftedChat

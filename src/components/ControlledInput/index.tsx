@@ -8,7 +8,7 @@ type ControlledInputProps = TextInputProps & {
   error?: string;
   control?: any,
   placeholder: string;
-  isPassword?: boolean
+  isPassword?: boolean;
 }
 
 export function ControlledTextfield({ name, control, placeholder, title, error, isPassword = false, ...rest }: ControlledInputProps) {
@@ -18,7 +18,7 @@ export function ControlledTextfield({ name, control, placeholder, title, error, 
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
-        <View style={{ height: error ? 105 : 85, gap: 10, alignItems: 'flex-start'  }}>
+        <View style={{ height: error ? 105 : 85, gap: 10, alignItems: 'flex-start' }}>
           <Text
             style={styles.typografy}
             children={title || name}
@@ -31,7 +31,7 @@ export function ControlledTextfield({ name, control, placeholder, title, error, 
             isPassword={isPassword}
             {...rest}
           />
-          {error && <Text  style={styles.textError} children={error} />}
+          {error && <Text style={styles.textError} children={error} />}
         </View>
       )}
     />

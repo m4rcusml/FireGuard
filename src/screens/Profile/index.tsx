@@ -5,18 +5,18 @@ import { IdentificationCard, MagnifyingGlass, Password } from 'phosphor-react-na
 import { SettingButton } from '../../components/SettingButton';
 import { ContentCard } from '../../components/ContentCard';
 import { Background } from '../../components/Background';
-import Logo from '../../assets/Logo';
+import Logo from '../../assets/Logo.svg';
+import { ProfileRoutesType } from '../../routes/profile.routes';
 
 export function Profile() {
-  const { navigate } = useNavigation();
-  
+  const { navigate } = useNavigation<NavigationProp<ProfileRoutesType>>();
+
   return (
     <Background style={{ gap: 35 }}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Conta</Text>
-        <Image source={{ uri: Logo }} width={64} style={{ aspectRatio: 1 }} />
+        <Logo width={64} style={{ aspectRatio: 1}} />
       </View>
-      
+
       <View style={styles.searchBar}>
         <MagnifyingGlass color='#aaa' size={20} />
         <TextInput
@@ -25,12 +25,13 @@ export function Profile() {
           style={{ color: 'white' }}
         />
       </View>
-      
+
       <ContentCard>
         <SettingButton
           title='Informações do usuário'
           showBorderBottom
           icon={() => <IdentificationCard />}
+          onPress={() => navigate('editProfile')}
         />
         <SettingButton
           title='Senha'
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     paddingHorizontal: 16
   },
   headerTitle: {

@@ -4,10 +4,9 @@ import { Bell, ChatsCircle, Gear, House, UserCircle } from 'phosphor-react-nativ
 
 import { SettingsRoutes } from './settings.routes';
 import { HomeRoutes } from './home.routes';
-import { Profile } from '../screens/Profile';
-import Logo from '../assets/Logo';
 import { NotificationsRoutes } from './notifications.routes';
 import { Chat } from '../screens/Chat';
+import { ProfileRoutes } from './profile.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -76,12 +75,12 @@ export function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name='profile'
-        component={Profile}
+        name='profileTab'
+        component={ProfileRoutes}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <UserCircle color={color} size={size} weight={focused ? 'fill' : 'regular'} />
-          )
+          ),
         }}
       />
     </Tab.Navigator>

@@ -30,7 +30,8 @@
     "react-native-svg": "15.2.0",
     "react-native-svg-transformer": "^1.4.0",
     "realm": "^12.9.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "expo-image-picker": "~15.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

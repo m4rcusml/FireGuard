@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Background as TopCard } from '../../components/Background';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Logo from '../../assets/Logo';
+import Logo from '../../assets/Logo.svg';
 import { FireExtinguisher, FirstAidKit, ShieldStar, WifiHigh } from 'phosphor-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HomeRoutesType } from '../../routes/home.routes';
@@ -22,9 +22,8 @@ export function Home() {
     <SafeAreaView style={styles.container}>
       <TopCard style={styles.topCard} cleanStyle>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Image
+          <Logo
             width={90}
-            source={{ uri: Logo }}
             style={{ aspectRatio: 1 }}
           />
 

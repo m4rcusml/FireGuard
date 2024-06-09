@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Languages } from '../screens/Settings/options/Languages';
 import { Settings as AllSettings } from '../screens/Settings';
-import Logo from '../assets/Logo';
+
+import Logo from '../assets/Logo.svg';
 
 export type SettingsRoutesType = {
   allSettings: undefined;
@@ -25,7 +26,7 @@ export function SettingsRoutes() {
         component={AllSettings}
         options={{
           title: 'Configurações',
-          headerRight: () => <Image source={{ uri: Logo }} width={64} style={{ aspectRatio: 1 }} />
+          headerRight: () => <Logo width={64} style={{ aspectRatio: 1 }} />
         }}
       />
       <Settings.Screen

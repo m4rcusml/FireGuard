@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Notifications as AllNotifications } from '../screens/Notifications';
 
 import { Languages } from '../screens/Settings/options/Languages';
-import Logo from '../assets/Logo';
 import { InApp } from '../screens/Notifications/more/InApp';
+
+import Logo from '../assets/Logo.svg';
 
 export type NotificationsRoutesType = {
   allNotifications: undefined;
@@ -26,7 +27,7 @@ export function NotificationsRoutes() {
         component={AllNotifications}
         options={{
           title: 'Notificações',
-          headerRight: () => <Image source={{ uri: Logo }} width={64} style={{ aspectRatio: 1 }} />
+          headerRight: () => <Logo width={64} style={{ aspectRatio: 1 }} />
         }}
       />
       <Notifications.Screen

@@ -1,10 +1,10 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { Background } from '../../components/Background';
-import Logo from '../../assets/Logo';
 import { useState } from 'react';
 import { SignUp } from './SignUp';
 import { Login } from './LogIn';
 import { StatusBar } from 'expo-status-bar';
+import Logo from '../../assets/Logo.svg';
 
 
 export function Authentication() {
@@ -22,8 +22,7 @@ export function Authentication() {
       />
       <Background >
         <View style={styles.logoCard}>
-          <Image
-            source={{ uri: Logo }}
+          <Logo
             style={styles.logoPicture}
           />
         </View>
