@@ -18,8 +18,7 @@ import { useForm } from 'react-hook-form';
 import { ContentCard } from '../../components/ContentCard';
 
 const userUpdate = z.object({
-  name: z.string({ required_error: 'Campo obrigatório' })
-    .min(1, 'Campo obrigatório')
+  username: z.string({ required_error: 'Campo obrigatório' }).min(1, 'Preencha este campo'),
 });
 
 type userUpdateType = z.infer<typeof userUpdate>;
@@ -35,10 +34,12 @@ export function EditProfile() {
   const [profilePic, setProfilePic] = useState(userProfile[0].imageProfile || '');
   const [username, setUsername] = useState(userProfile[0].name || '');
 
-  const { control, handleSubmit, formState: { errors } } = useForm<userUpdateType>({
-    resolver: zodResolver(userUpdate)
+  const { control, handleSubmit, setValue, formState: { errors } } = useForm<userUpdateType>({
+    resolver: zodResolver(userUpdate),
+    defaultValues: {
+      username: '', 
+    }
   });
-
 
   async function handleEditProfilePic() {
 
@@ -57,11 +58,17 @@ export function EditProfile() {
     }
   }
 
-  function handleSave() {
+  useEffect(() => {
+    if (userProfile[0]) {
+      setValue('username', userProfile[0].name);
+    }
+  }, [userProfile, setValue]);
+
+  function handleSave(data: userUpdateType) {
 
     if (userProfile[0]) {
       realm.write(() => {
-        userProfile[0].name = username;
+        userProfile[0].name = data.username;
         userProfile[0].imageProfile = profilePic;
 
 
@@ -76,8 +83,8 @@ export function EditProfile() {
 
   return (
     <Background usePaddingTop>
-      <ContentCard  style={{ gap: 35, alignItems: 'center', paddingTop: 30 }}>
-        <TouchableOpacity onPress={handleEditProfilePic} style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#C61414', borderRadius: 72, width: 146, height: 146}} >
+      <ContentCard style={{ gap: 35, alignItems: 'center', paddingTop: 30 }}>
+        <TouchableOpacity onPress={handleEditProfilePic} style={{ alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#C61414', borderRadius: 72, width: 146, height: 146 }} >
           <Image
             source={{ uri: profilePic }}
             width={144}
@@ -88,15 +95,14 @@ export function EditProfile() {
         </TouchableOpacity>
 
         <ControlledTextfield
-          name='name'
+          control={control}
+          name='username'
           title='Nome'
           placeholder='Digite seu novo nome'
-          onChangeText={setUsername}
-          value={username}
-          control={control}
+          error={errors.username?.message}
         />
 
-        <TouchableOpacity onPress={handleSave} style={{ backgroundColor: '#C61414', paddingHorizontal: 40, paddingVertical: 10, borderRadius: 20, }}>
+        <TouchableOpacity onPress={handleSubmit(handleSave)} style={{ backgroundColor: '#C61414', paddingHorizontal: 40, paddingVertical: 10, borderRadius: 20, }}>
           <Text style={{ color: 'white', fontWeight: 'bold' }} >SALVAR</Text>
         </TouchableOpacity>
       </ContentCard>

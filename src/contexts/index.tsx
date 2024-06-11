@@ -4,6 +4,7 @@ import { AuthRoutes } from "../routes/auth.routes";
 
 import { UserSchema } from "./UserSchema";
 import { Message } from "./MessageSchema";
+import { InstructionSchema } from './InstructionsSchema';
 
 
 export function AppRealmProvider({ children }: { children: React.ReactNode }) {
@@ -15,7 +16,7 @@ export function AppRealmProvider({ children }: { children: React.ReactNode }) {
     <AppProvider id='application-0-sfqtcfe'>
       <UserProvider fallback={AuthRoutes}>
         <RealmProvider
-          schema={[UserSchema, Message]}
+          schema={[UserSchema, Message, InstructionSchema]}
           sync={{
             flexible: true,
             onError: (session, error) => {
@@ -27,6 +28,7 @@ export function AppRealmProvider({ children }: { children: React.ReactNode }) {
               update(subs, realm) {
                 subs.add(realm.objects('user'));
                 subs.add(realm.objects('Message'));
+                subs.add(realm.objects('instruction'));
               },
               rerunOnOpen: true,
             },

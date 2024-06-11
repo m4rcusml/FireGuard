@@ -7,6 +7,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HomeRoutesType } from '../../routes/home.routes';
 import { useObject, useQuery, useRealm, useUser } from '@realm/react';
 import { UserSchema } from '../../contexts/UserSchema';
+import { useEffect } from 'react';
 
 export function Home() {
   const { navigate } = useNavigation<NavigationProp<HomeRoutesType>>();
@@ -14,9 +15,7 @@ export function Home() {
   const user = useUser();
   console.log(user.id);
 
-  
   const userProfile = useQuery(UserSchema).filtered('userId == $0', user.id);
-  console.log(userProfile[0]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +29,7 @@ export function Home() {
           <View style={styles.profileCard}>
             <Image
               width={38}
-              source={{ uri: userProfile[0]?.imageProfile}}
+              source={{ uri: userProfile[0]?.imageProfile }}
               style={{ aspectRatio: 1, borderRadius: 64 }}
             />
             <Text style={styles.profileName} numberOfLines={2}>

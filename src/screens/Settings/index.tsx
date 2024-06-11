@@ -19,17 +19,16 @@ export function Settings() {
   }
 
   const userProfile = useQuery(UserSchema).filtered('userId == $0', user.id);
-  console.log(userProfile[0]);
   
   return (
     <Background style={{ gap: 35 }} usePaddingTop>
       <View style={styles.profileCard}>
         <Image
-          source={{ uri: userProfile[0].imageProfile }}
+          source={{ uri: userProfile[0]?.imageProfile }}
           style={styles.profilePicture}
         />
         <Text style={styles.profileName}>
-          {userProfile[0].name}
+          {userProfile[0]?.name}
         </Text>
       </View>
       

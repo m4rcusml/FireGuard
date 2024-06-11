@@ -4,6 +4,8 @@ import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'r
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FirstAidInstructionsRoutesType } from '../../routes/home.routes';
 import { SettingButton } from '../../components/SettingButton';
+import { useQuery } from '@realm/react';
+import { InstructionSchema } from '../../contexts/InstructionsSchema';
 
 const InstructionsListData = [
   { name: 'O que fazer em caso de incêndio?' },
@@ -11,9 +13,14 @@ const InstructionsListData = [
   { name: 'O que fazer em caso de intoxicação?' }
 ]
 
+
+
 export function FirstAidInstructions() {
   const { goBack, navigate } = useNavigation<NavigationProp<FirstAidInstructionsRoutesType>>();
   const { top } = useSafeAreaInsets();
+
+  const Instructions = useQuery<InstructionSchema>('instruction').sorted('_id');
+  console.log(Instructions);
   
   return (
     <View style={styles.screenContainer}>
@@ -31,13 +38,14 @@ export function FirstAidInstructions() {
       </View>
 
       <View style={{ paddingHorizontal: 20 }}>
-        <FlatList
-          data={InstructionsListData}
+      <FlatList
+          data={Instructions}
+          keyExtractor={item => item._id.toHexString()} 
           renderItem={({ item, index }) => (
             <SettingButton
-              title={item.name}
-              showBorderBottom={index !== InstructionsListData.length - 1}
-              onPress={() => navigate('details', { instruction: item.name })}
+              title={item.title}
+              showBorderBottom={index !== Instructions.length - 1}
+              onPress={() => navigate('details', { instruction: item._id.toHexString() })}
             />
           )}
         />
