@@ -32,7 +32,6 @@ export function EditProfile() {
   const userProfile = useQuery(UserSchema).filtered('userId == $0', user.id);
 
   const [profilePic, setProfilePic] = useState(userProfile[0].imageProfile || '');
-  const [username, setUsername] = useState(userProfile[0].name || '');
 
   const { control, handleSubmit, setValue, formState: { errors } } = useForm<userUpdateType>({
     resolver: zodResolver(userUpdate),
