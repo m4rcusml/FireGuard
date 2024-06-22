@@ -5,12 +5,17 @@ import { FirstAidInstructions } from '../screens/FirstAidInstructions';
 import { InstructionDetails } from '../screens/InstructionDetails';
 import { Extinguishers } from '../screens/Extinguishers';
 import { EntinguisherDetails } from '../screens/ExtinguisherDetails';
+import { Equipements } from '../screens/Equipements';
+import { AddEquipements } from '../screens/AddEquipement';
+import { Text } from 'react-native';
+
 
 export type HomeRoutesType = {
   initial: undefined;
   sensors: undefined;
   firstAidInstructions: undefined;
   viewExtinguisher: undefined;
+  viewEquipements: undefined;
 }
 
 export type FirstAidInstructionsRoutesType = {
@@ -27,11 +32,19 @@ export type ExtinguishersRoutesType = {
   }
 }
 
+export type EquipementsRoutesType = {
+  equipements: undefined;
+  addequipements: undefined;
+}
+
 const HomeStack = createNativeStackNavigator<HomeRoutesType>();
 
 const FirstAidStack = createNativeStackNavigator<FirstAidInstructionsRoutesType>();
 
 const ExtinguishersStack = createNativeStackNavigator<ExtinguishersRoutesType>();
+
+const EquipementStack = createNativeStackNavigator<EquipementsRoutesType>()
+
 
 function ExtinguishersRoutes() {
   return (
@@ -54,6 +67,33 @@ function ExtinguishersRoutes() {
     </ExtinguishersStack.Navigator>
   )
 }
+function EquipementsRoutes() {
+  return (
+    <EquipementStack.Navigator
+      screenOptions={{
+        headerTransparent: true,
+        headerTintColor: 'white'
+      }}
+    >
+      <EquipementStack.Screen
+        name='equipements'
+        component={Equipements}
+        options={{ title: 'Equipamentos de segurança ' }}
+      />
+      <EquipementStack.Screen
+        name='addequipements'
+        component={AddEquipements}
+        options={{
+          title: 'Adicionar equipamento',
+          headerTitleAlign: 'center',
+        }}
+
+      />
+    </EquipementStack.Navigator>
+  )
+}
+
+
 
 function FirstAidInstructionsRoutes() {
   return (
@@ -95,6 +135,10 @@ export function HomeRoutes() {
       <HomeStack.Screen
         name='viewExtinguisher'
         component={ExtinguishersRoutes}
+      />
+      <HomeStack.Screen
+        name='viewEquipements'
+        component={EquipementsRoutes}
       />
     </HomeStack.Navigator>
   )

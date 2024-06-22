@@ -61,7 +61,7 @@ export function Home() {
           <Text style={styles.actionName}>Visualizar extintor</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.action} activeOpacity={0.4}>
+        <TouchableOpacity style={styles.action} activeOpacity={0.4} onPress={() => navigate('viewEquipements')} >
           <ShieldStar color='white' size={32} />
           <Text style={styles.actionName}>Equipamento de segurança</Text>
         </TouchableOpacity>

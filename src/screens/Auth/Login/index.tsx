@@ -37,8 +37,12 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
         setError('email', { type: 'manual', message: 'E-mail ou senha incorretos' });
         setValue('password', '');
       }
+      else if (result.error.message === 'Error: unauthorized') {
+        setError('email', { type: 'manual', message: 'Este email não esta cadastrado' });
+        setValue('password', '');
+      }
       else {
-        Alert.alert("Ocorreu um erro");
+        Alert.alert("Ocorreu um erro", result.error.message);
       }
 
     }

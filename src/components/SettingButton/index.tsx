@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     padding: 10,
     gap: 10, 
     alignItems: 'center',
+    width: '100%'
   },
   borderBottom: {
     backgroundColor: 'black',
