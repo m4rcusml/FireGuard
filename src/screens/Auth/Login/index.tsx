@@ -41,15 +41,10 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
         setError('email', { type: 'manual', message: 'Este email não esta cadastrado' });
         setValue('password', '');
       }
-      else {
-        Alert.alert("Ocorreu um erro", result.error.message);
-      }
-
     }
   }, [result]);
 
-  //NAVEÇÃO PARA FORGOT PASSWORD
-  //const { navigate } = useNavigation<NavigationProp<AuthRoutesType>>();
+  const { navigate } = useNavigation<NavigationProp<AuthRoutesType>>();
 
   return (
     <ContentCard style={{ paddingHorizontal: 30 }} cleanedPadding>
@@ -71,10 +66,12 @@ export function Login({ handleIsNewUser }: { handleIsNewUser(): void }) {
         />
         <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit(handleLogin)} >
           <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }} >Entrar</Text>
+        </TouchableOpacity  >
+        <TouchableOpacity onPress={() => navigate('forgotpassword')} >
+          <Text style={styles.commonText}>Esqueceu a senha?
+            <Text style={styles.touchableText}> Clique aqui</Text>
+          </Text>
         </TouchableOpacity>
-        <Text style={styles.commonText}>Esqueceu a senha?
-          <Text style={styles.touchableText}> Clique aqui</Text>
-        </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
           <View style={styles.divisor} />
           <Text>ou</Text>

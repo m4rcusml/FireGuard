@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "FireGuard",
+    "scheme": "fireguard",
     "slug": "FireGuard",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,14 +13,38 @@
       "backgroundColor": "#E93636"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fireguard",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["fireguard"]
+          }
+        ]
+      }
     },
     "android": {
+      "package": "com.fireguard",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "fireguard.com",
+              "pathPrefix": "/resetPassword"
+            },
+            {
+              "scheme": "fireguard"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#E93636"
-      },
-      "package": "com.fireguard"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

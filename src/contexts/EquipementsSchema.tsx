@@ -3,6 +3,7 @@ import Realm from 'realm';
 export class EquipementsSchema extends Realm.Object<EquipementsSchema> {
     _id!: Realm.BSON.ObjectId;
     name!: string;
+    equipement!: string;
     qnt!: number;
     type!: string;
     fabDate!: Date;
@@ -20,6 +21,7 @@ export class EquipementsSchema extends Realm.Object<EquipementsSchema> {
             fabDate:'date',
             weight: 'int',
             local: 'string',
+            equipement: 'string',
         }
     }
 

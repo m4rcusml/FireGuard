@@ -7,7 +7,9 @@ import { Extinguishers } from '../screens/Extinguishers';
 import { EntinguisherDetails } from '../screens/ExtinguisherDetails';
 import { Equipements } from '../screens/Equipements';
 import { AddEquipements } from '../screens/AddEquipement';
-import { Text } from 'react-native';
+import { ViewEquipments } from '../screens/ViewEquipements';
+import { ListEquipments } from '../screens/ListEquipements';
+import { EquipmentDetails } from '../screens/EquipementDetails';
 
 
 export type HomeRoutesType = {
@@ -35,7 +37,10 @@ export type ExtinguishersRoutesType = {
 export type EquipementsRoutesType = {
   equipements: undefined;
   addequipements: undefined;
-}
+  viewEquipments: undefined;
+  listEquipments: { name: string };
+  equipmentDetails: { id: string };
+};
 
 const HomeStack = createNativeStackNavigator<HomeRoutesType>();
 
@@ -67,6 +72,7 @@ function ExtinguishersRoutes() {
     </ExtinguishersStack.Navigator>
   )
 }
+
 function EquipementsRoutes() {
   return (
     <EquipementStack.Navigator
@@ -87,7 +93,21 @@ function EquipementsRoutes() {
           title: 'Adicionar equipamento',
           headerTitleAlign: 'center',
         }}
-
+      />
+      <EquipementStack.Screen
+        name='viewEquipments'
+        component={ViewEquipments}
+        options={{ title: 'Visualizar Equipamentos', headerTitleAlign: 'center' }} 
+      />
+      <EquipementStack.Screen
+        name='listEquipments'
+        component={ListEquipments} 
+        options={({ route }) => ({ title: `${route.params.name}`, headerTitleAlign: 'center' })} 
+      />
+      <EquipementStack.Screen
+        name='equipmentDetails'
+        component={EquipmentDetails}
+        options={{ title: 'Detalhes do Equipamento', headerTitleAlign: 'center' }} 
       />
     </EquipementStack.Navigator>
   )

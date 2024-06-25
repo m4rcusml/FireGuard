@@ -47,6 +47,7 @@ export function Equipements() {
           )}
           title='Visualizar equipamentos'
           showBorderBottom
+          onPress={() => navigate('viewEquipments')}
         />
       </View>
 

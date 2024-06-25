@@ -24,7 +24,7 @@ type EquipementInfoType = z.infer<typeof equipementInfoSchema>;
 interface ModalProps {
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  defaultName: string; // Adicionando a prop defaultName
+  defaultName: string;
 }
 
 function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: ModalProps) {
@@ -53,17 +53,12 @@ function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: Moda
     }
   });
 
-  useEffect(() => {
-    if (modalVisible) {
-      setValue('name', defaultName);
-    }
-  }, [modalVisible, defaultName, setValue]);
-
   function createEquipement(data: EquipementInfoType) {
     const formattedFabDate = parseDate(data.fabDate);
 
     realm.write(() => {
       realm.create('equipements', {
+        equipement: defaultName,
         name: data.name,
         qnt: parseInt(data.qnt),
         type: data.type,
@@ -93,7 +88,7 @@ function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: Moda
       animationType="slide"
     >
       <View style={styles.modalView}>
-        <Text style={styles.modalTitle}>Adicionar Equipamento</Text>
+        <Text style={styles.modalTitle}>Adicionar {defaultName}</Text>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <ContentCard style={{ gap: 10 }}>
             <ExtinguisherInput
@@ -102,7 +97,6 @@ function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: Moda
               title='Nome do equipamento'
               placeholder='Digite o nome do equipamento'
               error={errors.name?.message}
-              editable={false} // Tornando o campo não editável
             />
             <ExtinguisherInput
               control={control}
@@ -140,11 +134,11 @@ function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: Moda
               error={errors.local?.message}
             />
             <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between', marginTop: 5 }}>
-              <TouchableOpacity style={{ backgroundColor: 'red', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 15, }}>
-                <Text onPress={() => setModalVisible(false)} style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>Cancelar</Text>
+              <TouchableOpacity onPress={() => setModalVisible(false)} style={{ backgroundColor: 'red', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 15, }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>Cancelar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{ backgroundColor: 'green', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 15, }}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }} onPress={handleSubmit(createEquipement)} >Adicionar</Text>
+              <TouchableOpacity onPress={handleSubmit(createEquipement)} style={{ backgroundColor: 'green', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 15, }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}  >Adicionar</Text>
               </TouchableOpacity>
             </View>
           </ContentCard>
@@ -157,7 +151,7 @@ function ModalAddEquipement({ modalVisible, setModalVisible, defaultName }: Moda
 export function AddEquipements() {
   const { top } = useSafeAreaInsets();
   const [showModal, setShowModal] = useState(false);
-  const [defaultName, setDefaultName] = useState(''); // Estado para armazenar o nome do equipamento
+  const [defaultName, setDefaultName] = useState('');
 
   const openModalWithDefaultName = (name: string) => {
     setDefaultName(name);
@@ -279,5 +273,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: 'white',
     fontWeight: 'bold',
+    maxWidth: '80%'
   },
 });
