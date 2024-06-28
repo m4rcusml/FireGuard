@@ -6,15 +6,9 @@ const Stack = createNativeStackNavigator();
 
 export function StackRoutes() {
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen
-        name='main'
-        component={TabRoutes}
-      />
-      <Stack.Screen name="resetpassword" component={ResetPassword} />
-
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='main' component={TabRoutes} />
+      <Stack.Screen name='resetpassword' component={ResetPassword} />
     </Stack.Navigator>
-  )
+  );
 }

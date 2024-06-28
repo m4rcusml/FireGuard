@@ -6,13 +6,12 @@ type ControlledInputProps = TextInputProps & {
   title?: string;
   name: string;
   error?: string;
-  control?: any,
+  control?: any;
   placeholder: string;
   isPassword?: boolean;
 }
 
 export function ControlledTextfield({ name, control, placeholder, title, error, isPassword = false, ...rest }: ControlledInputProps) {
-
   return (
     <Controller
       name={name}
@@ -48,5 +47,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#C61414',
   }
-
 });

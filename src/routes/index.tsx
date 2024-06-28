@@ -5,16 +5,6 @@ import { UserSchema } from '../contexts/UserSchema';
 import { useQuery, useUser } from '@realm/react';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import * as Linking from 'expo-linking';
-
-const linking = {
-  prefixes: ['https://fireguard.com', 'fireguard://'],
-  config: {
-    screens: {
-      resetpassword: 'resetPassword/:token/:tokenId',
-    },
-  },
-};
 
 export function Routes() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,19 +18,6 @@ export function Routes() {
     }
   }, [userProfile]);
 
-  useEffect(() => {
-    const handleDeepLink = ({ url }: { url: string }) => {
-      const data = Linking.parse(url);
-      console.log('Received deep link:', url);
-      console.log('Parsed data:', data);
-    };
-
-    const linkingListener = Linking.addEventListener('url', handleDeepLink);
-
-    return () => {
-      linkingListener.remove();
-    };
-  }, []);
 
   if (isLoading) {
     return (
@@ -51,7 +28,7 @@ export function Routes() {
   }
 
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer >
       <StatusBar style='dark' />
       <StackRoutes />
     </NavigationContainer>

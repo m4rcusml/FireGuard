@@ -1,4 +1,4 @@
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import Logo from '../../../assets/Logo.svg';
@@ -22,47 +22,46 @@ export function ForgotPassword() {
   });
 
   const { sendResetPasswordEmail, result } = useEmailPasswordAuth();
-
   const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const resetPassword = async ({ email }: userResetPasswordType) => {
     setLoading(true);
     try {
       await sendResetPasswordEmail({ email });
+      setEmailSent(true);
     } catch (error) {
       Alert.alert('Erro ao enviar email de redefinição de senha. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
-    if (result.success) {
-      Alert.alert('Email de redefinição de senha enviado com sucesso!');
-      setLoading(false);
-    } else if (result.error) {
-      if (result.error.message === 'Error: user not found') {
-        Alert.alert('Ops...Ocorreu um Erro: Usuário não encontrado');
-      } else {
-        Alert.alert('Ocorreu um erro', result.error.message);
+    if (emailSent) {
+      if (result.success) {
+        Alert.alert('Email de redefinição de senha enviado com sucesso!');
+        setEmailSent(false);
+      } else if (result.error) {
+        if (result.error.message === 'Error: user not found') {
+          Alert.alert('Ops...Ocorreu um Erro: Usuário não encontrado');
+        } else {
+          console.log('Ocorreu um erro', result.error.message);
+        }
+        setEmailSent(false);
       }
-      setLoading(false);
     }
-  }, [result]);
+  }, [result, emailSent]);
 
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor={'transparent'}
-      />
+      <StatusBar translucent backgroundColor={'transparent'} />
       <Background>
         <View style={styles.logoCard}>
-          <Logo
-            style={styles.logoPicture}
-          />
+          <Logo style={styles.logoPicture} />
         </View>
-        <ContentCard style={{ paddingHorizontal: 30, alignItems: 'center', paddingVertical: 60, gap: 15 }} >
-          <Text style={{ fontSize: 16, color: '#C61414', textTransform: 'uppercase', fontWeight: 'bold' }} >Esqueceu a senha</Text>
+        <ContentCard style={{ paddingHorizontal: 30, alignItems: 'center', paddingVertical: 60, gap: 15 }}>
+          <Text style={{ fontSize: 16, color: '#C61414', textTransform: 'uppercase', fontWeight: 'bold' }}>Esqueceu a senha</Text>
           <ControlledTextfield
             control={control}
             name='email'
@@ -71,7 +70,7 @@ export function ForgotPassword() {
             error={errors.email?.message}
           />
           <TouchableOpacity
-            style={{ backgroundColor: '#C61414', paddingHorizontal: 70, paddingVertical: 10, borderRadius: 30, marginTop: 25, }}
+            style={{ backgroundColor: '#C61414', paddingHorizontal: 70, paddingVertical: 10, borderRadius: 30, marginTop: 25 }}
             onPress={handleSubmit(resetPassword)}
             disabled={loading}
           >

@@ -1,7 +1,6 @@
 import Realm from 'realm';
 import { AppProvider, RealmProvider, UserProvider } from "@realm/react";
 import { AuthRoutes } from "../routes/auth.routes";
-
 import { UserSchema } from "./UserSchema";
 import { Message } from "./MessageSchema";
 import { InstructionSchema } from './InstructionsSchema';
@@ -9,9 +8,7 @@ import { LoadingScreen } from '../screens/LoadingScreen';
 import { ExtinguisherSchema } from './ExtinguisherSchema';
 import { EquipementsSchema } from './EquipementsSchema';
 
-
 export function AppRealmProvider({ children }: { children: React.ReactNode }) {
-
   return (
     <AppProvider id='application-0-sfqtcfe'>
       <UserProvider fallback={AuthRoutes}>
@@ -33,7 +30,6 @@ export function AppRealmProvider({ children }: { children: React.ReactNode }) {
               },
               rerunOnOpen: true,
             },
-
           }}
         >
           {children}
